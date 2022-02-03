@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./src
+    container_name: api
+    command: |
+      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000'
+    volumes:
+      - ./src/:/usr/src/app/
+    ports:
+      - 8003:8000
+    environment:
+      - DATABASE_URL=postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev
+    networks:
+      - web
+  db:
+    container_name: db
+    image: postgres:13-alpine
+    hostname: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=hello_fastapi
+      - POSTGRES_PASSWORD=hello_fastapi
+      - POSTGRES_DB=hello_fastapi_dev
+    networks:
+      - web
+
+  pgadmin:
+    restart: always
+    image: dpage/pgadmin4:6.4
+    container_name: pgadmin
+    hostname: pgadmin
+    environment:
+      - TZ=Europe/Kiev
+      - PGADMIN_DEFAULT_EMAIL=example@none.none
+      - PGADMIN_DEFAULT_PASSWORD=123qweASD
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - "8090:80"
+    networks:
+      - web
+
+networks:git
+   web:
+     external: true
+
+volumes:
+  postgres_data:
