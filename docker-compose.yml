@@ -44,7 +44,7 @@ services:
     networks:
       - web
 
-networks:git
+networks:
    web:
      external: true
 

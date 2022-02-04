@@ -18,13 +18,13 @@ def get_db():
         db.close()
 
 
-@router.post("/", response_model=UserDB, status_code=201)
+@router.post("/user/", response_model=UserDB, status_code=201)
 async def create_user(*, db: Session = Depends(get_db), payload: UserSchema):
     user = services.post(db_session=db, payload=payload)
     return user
 
 
-@router.get("/{id}/", response_model=UserDB)
+@router.get("/user/{id}/", response_model=UserDB)
 async def read_user(
     *, db: Session = Depends(get_db), id: int = Path(..., gt=0),
 ):
@@ -39,7 +39,7 @@ async def read_all_users(db: Session = Depends(get_db)):
     return services.get_all(db_session=db)
 
 
-@router.put("/{id}/", response_model=UserDB)
+@router.put("/user/{id}/", response_model=UserDB)
 async def update_user(
     *, db: Session = Depends(get_db), id: int = Path(..., gt=0), payload: UserSchema
 ):
@@ -52,7 +52,8 @@ async def update_user(
     return user
 
 
-@router.delete("/{id}/", response_model=UserDB)
+
+@router.delete("/user/{id}/", response_model=UserDB)
 async def delete_user(
     *, db: Session = Depends(get_db), id: int = Path(..., gt=0),
 ):

@@ -1,11 +1,8 @@
 from pydantic import BaseModel, Field
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
-
 from app.db import Base
 
-
-# SQLAlchemy Model
 
 class User(Base):
 
@@ -23,8 +20,6 @@ class User(Base):
         self.email = email
         self.password = password
 
-
-# Pydantic Model
 
 class UserSchema(BaseModel):
     user_name: str = Field(..., min_length=3, max_length=50)
