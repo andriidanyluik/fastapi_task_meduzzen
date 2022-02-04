@@ -5,6 +5,10 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 881b1c7fc90a1e2862617ccbb668e8de3b115157
 COPY ./requirements.txt /usr/src/app/requirements.txt
 
 
