@@ -3,11 +3,6 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from app.db import Base
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 881b1c7fc90a1e2862617ccbb668e8de3b115157
 class User(Base):
 
     __tablename__ = "users"
