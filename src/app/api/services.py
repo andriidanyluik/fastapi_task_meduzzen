@@ -23,7 +23,7 @@ def get_all(db_session: Session):
 def put(db_session: Session, user: User, user_name: str, email: str, password: str):
     user.user_name = user_name
     user.email = email
-    user.password = password
+    user.password = Hasher.get_password_hash(password)
     db_session.commit()
     return user
 
